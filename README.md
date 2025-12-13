@@ -1,13 +1,20 @@
 # Simple Unlock
 
-A lightweight Geode mod for Geometry Dash that unlocks cosmetic features and practice mode enhancements.
+A lightweight Geode mod for Geometry Dash that unlocks content and adds quality-of-life features.
 
 ## Features
 
-- **Practice Music Sync**: Enables synchronized music during practice mode
-- **Icon Unlock**: Access all icons across all gamemodes (cube, ship, ball, UFO, wave, robot, spider, swing)
-- **Color Unlock**: Use any color or trail combination
-- **Persistent Selections**: Your icon and color choices are automatically saved between sessions
+### Unlocks
+- **All Icons & Colors**: Access all icons across all gamemodes (cube, ship, ball, UFO, wave, robot, spider, swing) and all colors
+- **Persistent Selections**: Your icon and color choices automatically save between sessions
+- **Practice Music Sync**: Synchronized music during practice mode
+- **Shops Unlocked**: All shops accessible (no main level completion required)
+- **Vaults Unlocked**: Vault of Secrets accessible
+
+### Quality of Life
+- **Practice Mode Coin Pickup**: Collect coins during practice mode (actually counts toward completion)
+- **Accurate Percentages**: Shows percentage with 3 decimal places (e.g., 99.873%)
+- **Auto-Save**: Automatically saves your progress when completing or quitting levels
 
 ## Installation
 
@@ -26,10 +33,11 @@ Copy `max.simple-unlock.geode` to your Geometry Dash mods directory and restart 
 
 ## Usage
 
-Once installed, the mod works automatically:
-- All icons and colors become immediately available in the icon kit
+Once installed, all features work automatically:
+- All icons, colors, shops, and vaults are immediately available
 - Selected icons persist across game restarts
-- Practice music sync is enabled by default
+- Practice mode coin pickup and accurate percentages work in any level
+- Auto-save triggers when completing or quitting levels
 
 No configuration required.
 
@@ -49,11 +57,13 @@ The built `.geode` file will be in the `build/` directory.
 ## Technical Details
 
 This mod uses Geode's hooking system to:
-- Override unlock checks for icons and cosmetics
-- Intercept icon selection calls to persist user choices
-- Restore saved selections on game initialization
+- Override unlock checks for icons, colors, shops, and vaults
+- Call `unlockIcon()` on startup to persist user choices
+- Intercept coin collection in practice mode
+- Enhance percentage display precision
+- Trigger saves at appropriate times
 
-All data is stored using Geode's built-in persistence API.
+All data is stored using Geode's built-in persistence API and GD's native save system.
 
 ## License
 
