@@ -96,12 +96,15 @@ class $modify(GameStatsManager) {
 class $modify(PracticeCoinGBGL, GJBaseGameLayer) {
     void collectItem(int itemID, int count) {
         // Always collect coins, even in practice mode
-        if (m_isPracticeMode) {
+        bool wasPractice = m_isPracticeMode;
+        if (wasPractice) {
             m_isPracticeMode = false;
-            GJBaseGameLayer::collectItem(itemID, count);
+        }
+        
+        GJBaseGameLayer::collectItem(itemID, count);
+        
+        if (wasPractice) {
             m_isPracticeMode = true;
-        } else {
-            GJBaseGameLayer::collectItem(itemID, count);
         }
     }
 };
