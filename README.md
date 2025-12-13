@@ -12,7 +12,6 @@ A lightweight Geode mod for Geometry Dash that unlocks content and adds quality-
 - **Vaults Unlocked**: Vault of Secrets accessible
 
 ### Quality of Life
-- **Practice Mode Coin Pickup**: Collect coins during practice mode (actually counts toward completion)
 - **Accurate Percentages**: Shows percentage with 3 decimal places (e.g., 99.873%)
 - **Auto-Save**: Automatically saves your progress when completing or quitting levels
 
@@ -36,8 +35,7 @@ Copy `max.simple-unlock.geode` to your Geometry Dash mods directory and restart 
 Once installed, all features work automatically:
 - All icons, colors, shops, and vaults are immediately available
 - Selected icons persist across game restarts
-- Practice mode coin pickup and accurate percentages work in any level
-- Auto-save triggers when completing or quitting levels
+- Accurate percentages and auto-save work in any level
 
 No configuration required.
 

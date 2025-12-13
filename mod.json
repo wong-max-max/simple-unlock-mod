@@ -4,7 +4,7 @@
     "id": "max.simple-unlock",
     "name": "Simple Unlock",
     "developer": "Max",
-    "description": "Unlocks all icons/colors, shops, vaults. Practice mode coin pickup, accurate percentages (3 decimals), auto-save.",
+    "description": "Unlocks all icons/colors, shops, vaults. Adds accurate percentages (3 decimals) and auto-save.",
     "gd": {
         "win": "*"
     }

@@ -6,7 +6,6 @@ using namespace geode::prelude;
 #include <Geode/modify/GameManager.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
-#include <Geode/modify/GJBaseGameLayer.hpp>
 
 // Icon & Color Unlock
 class $modify(UnlockGM, GameManager) {
@@ -89,23 +88,6 @@ class $modify(GameStatsManager) {
         if (statInt == 12) return 50;
         
         return ret;
-    }
-};
-
-// Practice Mode Coin Pickup
-class $modify(PracticeCoinGBGL, GJBaseGameLayer) {
-    void collectItem(int itemID, int count) {
-        // Always collect coins, even in practice mode
-        bool wasPractice = m_isPracticeMode;
-        if (wasPractice) {
-            m_isPracticeMode = false;
-        }
-        
-        GJBaseGameLayer::collectItem(itemID, count);
-        
-        if (wasPractice) {
-            m_isPracticeMode = true;
-        }
     }
 };
 
