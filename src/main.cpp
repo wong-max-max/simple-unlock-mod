@@ -99,36 +99,49 @@ class $modify(GameStatsManager) {
 
 // Accurate Percentage (3 decimals) + Auto Save
 class $modify(AccuratePctPL, PlayLayer) {
+    struct Fields {
+        CCLabelBMFont* percentLabel = nullptr;
+    };
+    
+    bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
+        if (!PlayLayer::init(level, useReplay, dontCreateObjects)) return false;
+        
+        // Find the percent label by searching children
+        m_fields->percentLabel = nullptr;
+        for (int i = 0; i < this->getChildrenCount(); i++) {
+            auto child = this->getChildren()->objectAtIndex(i);
+            if (auto label = typeinfo_cast<CCLabelBMFont*>(child)) {
+                std::string text = label->getString();
+                if (text.find("%") != std::string::npos) {
+                    m_fields->percentLabel = label;
+                    break;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
     void updateProgressbar() {
         PlayLayer::updateProgressbar();
         
-        auto progressBar = getChildByID("progress-bar");
-        if (!progressBar) return;
-        
-        auto progressLabel = static_cast<CCLabelBMFont*>(progressBar->getChildByID("progress-label"));
-        if (!progressLabel) return;
-        
-        // Calculate accurate percentage (3 decimals)
-        float percent = m_level->m_normalPercent.value();
-        if (m_isPracticeMode) {
-            percent = m_level->m_practicePercent;
+        if (m_fields->percentLabel) {
+            // Get current percentage
+            float percent = PlayLayer::getCurrentPercent();
+            
+            // Format with 3 decimal places
+            char buffer[32];
+            snprintf(buffer, sizeof(buffer), "%.3f%%", percent);
+            m_fields->percentLabel->setString(buffer);
         }
-        
-        // Format with 3 decimal places
-        char buffer[32];
-        snprintf(buffer, sizeof(buffer), "%.3f%%", percent);
-        progressLabel->setString(buffer);
     }
     
     void levelComplete() {
         PlayLayer::levelComplete();
-        
-        // Auto-save after completing a level
         GameManager::get()->save();
     }
     
     void onQuit() {
-        // Auto-save when quitting a level
         GameManager::get()->save();
         PlayLayer::onQuit();
     }
