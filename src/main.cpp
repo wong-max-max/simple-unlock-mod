@@ -63,7 +63,7 @@ class $modify(MenuLayer) {
     }
 };
 
-// Unlock Shops, Vaults, Paths, Practice Music, etc.
+// Unlock Practice Music
 class $modify(GameStatsManager) {
     bool isItemUnlocked(UnlockType type, int id) {
         if (GameStatsManager::isItemUnlocked(type, id)) return true;
@@ -75,26 +75,6 @@ class $modify(GameStatsManager) {
         
         return false;
     }
-    
-    // Unlock shops, vaults, and paths
-    int getStat(char const* stat) {
-        int ret = GameStatsManager::getStat(stat);
-        int statInt = std::stoi(stat);
-        
-        // Main levels (unlock shops)
-        if (statInt == 8) return 30;
-        
-        // Vault of Secrets (unlock vault)
-        if (statInt == 12) return 50;
-        
-        // Paths unlocked (stars)
-        if (statInt == 6) return 200;
-        
-        // Demons unlocked
-        if (statInt == 5) return 30;
-        
-        return ret;
-    }
 };
 
 // Accurate Percentage (3 decimals) + Auto Save
@@ -103,33 +83,27 @@ class $modify(AccuratePctPL, PlayLayer) {
         CCLabelBMFont* percentLabel = nullptr;
     };
     
-    bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
-        if (!PlayLayer::init(level, useReplay, dontCreateObjects)) return false;
+    void updateProgressbar() {
+        PlayLayer::updateProgressbar();
         
-        // Find the percent label by searching children
-        m_fields->percentLabel = nullptr;
-        for (int i = 0; i < this->getChildrenCount(); i++) {
-            auto child = this->getChildren()->objectAtIndex(i);
-            if (auto label = typeinfo_cast<CCLabelBMFont*>(child)) {
-                std::string text = label->getString();
-                if (text.find("%") != std::string::npos) {
-                    m_fields->percentLabel = label;
-                    break;
+        // Find the percent label if we don't have it yet
+        if (!m_fields->percentLabel) {
+            for (int i = 0; i < this->getChildrenCount(); i++) {
+                auto child = this->getChildren()->objectAtIndex(i);
+                if (auto label = typeinfo_cast<CCLabelBMFont*>(child)) {
+                    std::string text = label->getString();
+                    if (text.find("%") != std::string::npos) {
+                        m_fields->percentLabel = label;
+                        break;
+                    }
                 }
             }
         }
         
-        return true;
-    }
-    
-    void updateProgressbar() {
-        PlayLayer::updateProgressbar();
-        
+        // Update the label with 3 decimal places
         if (m_fields->percentLabel) {
-            // Get current percentage
             float percent = PlayLayer::getCurrentPercent();
             
-            // Format with 3 decimal places
             char buffer[32];
             snprintf(buffer, sizeof(buffer), "%.3f%%", percent);
             m_fields->percentLabel->setString(buffer);
@@ -144,5 +118,10 @@ class $modify(AccuratePctPL, PlayLayer) {
     void onQuit() {
         GameManager::get()->save();
         PlayLayer::onQuit();
+    }
+    
+    void resetLevel() {
+        m_fields->percentLabel = nullptr; // Reset so it finds it again
+        PlayLayer::resetLevel();
     }
 };
