@@ -63,7 +63,7 @@ class $modify(MenuLayer) {
     }
 };
 
-// Unlock Shops, Vaults, Practice Music, etc.
+// Unlock Shops, Vaults, Paths, Practice Music, etc.
 class $modify(GameStatsManager) {
     bool isItemUnlocked(UnlockType type, int id) {
         if (GameStatsManager::isItemUnlocked(type, id)) return true;
@@ -76,7 +76,7 @@ class $modify(GameStatsManager) {
         return false;
     }
     
-    // Unlock shops and vaults
+    // Unlock shops, vaults, and paths
     int getStat(char const* stat) {
         int ret = GameStatsManager::getStat(stat);
         int statInt = std::stoi(stat);
@@ -87,6 +87,12 @@ class $modify(GameStatsManager) {
         // Vault of Secrets (unlock vault)
         if (statInt == 12) return 50;
         
+        // Paths unlocked (stars)
+        if (statInt == 6) return 200;
+        
+        // Demons unlocked
+        if (statInt == 5) return 30;
+        
         return ret;
     }
 };
@@ -95,8 +101,6 @@ class $modify(GameStatsManager) {
 class $modify(AccuratePctPL, PlayLayer) {
     void updateProgressbar() {
         PlayLayer::updateProgressbar();
-        
-        if (!m_levelEndAnimationStarted && m_hasCompletedLevel) return;
         
         auto progressBar = getChildByID("progress-bar");
         if (!progressBar) return;

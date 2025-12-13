@@ -10,6 +10,7 @@ A lightweight Geode mod for Geometry Dash that unlocks content and adds quality-
 - **Practice Music Sync**: Synchronized music during practice mode
 - **Shops Unlocked**: All shops accessible (no main level completion required)
 - **Vaults Unlocked**: Vault of Secrets accessible
+- **Paths Unlocked**: All map paths accessible (200 stars, 30 demons)
 
 ### Quality of Life
 - **Accurate Percentages**: Shows percentage with 3 decimal places (e.g., 99.873%)
@@ -33,7 +34,7 @@ Copy `max.simple-unlock.geode` to your Geometry Dash mods directory and restart 
 ## Usage
 
 Once installed, all features work automatically:
-- All icons, colors, shops, and vaults are immediately available
+- All icons, colors, shops, vaults, and paths are immediately available
 - Selected icons persist across game restarts
 - Accurate percentages and auto-save work in any level
 
