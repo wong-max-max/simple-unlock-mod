@@ -1,0 +1,11 @@
+{
+    "geode": "4.10.0",
+    "version": "v1.1.0",
+    "id": "max.simple-unlock",
+    "name": "Simple Unlock",
+    "developer": "Max",
+    "description": "Unlocks practice music sync and all icons/colors. Selections persist across restarts.",
+    "gd": {
+        "win": "*"
+    }
+}
