@@ -10,7 +10,7 @@ A lightweight Geode mod for Geometry Dash that unlocks content and adds quality-
 - **Practice Music Sync**: Synchronized music during practice mode
 
 ### Quality of Life
-- **Accurate Percentages**: Shows percentage with 3 decimal places (e.g., 99.873%)
+- **Accurate Percentages**: Shows percentage with 10 decimal places (e.g., 99.8730000000%)
 - **Auto-Save**: Automatically saves your progress when completing or quitting levels
 
 ## Installation

@@ -77,7 +77,7 @@ class $modify(GameStatsManager) {
     }
 };
 
-// Accurate Percentage (3 decimals) + Auto Save
+// Accurate Percentage (10 decimals) + Auto Save
 class $modify(AccuratePctPL, PlayLayer) {
     struct Fields {
         CCLabelBMFont* percentLabel = nullptr;
@@ -100,12 +100,12 @@ class $modify(AccuratePctPL, PlayLayer) {
             }
         }
         
-        // Update the label with 3 decimal places
+        // Update the label with 10 decimal places
         if (m_fields->percentLabel) {
             float percent = PlayLayer::getCurrentPercent();
-            
+
             char buffer[32];
-            snprintf(buffer, sizeof(buffer), "%.3f%%", percent);
+            snprintf(buffer, sizeof(buffer), "%.10f%%", percent);
             m_fields->percentLabel->setString(buffer);
         }
     }
